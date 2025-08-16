@@ -23,3 +23,14 @@ jobs:
         tags: |
           joseviniciussilva/pipeline:v${{github.run_number}}
           joseviniciussilva/pipeline:latest
+  CD:
+    runs-on: ubuntu-latest
+    needs: [CI]
+    steps:
+    - name: "Obtendo o código"
+      uses: actions/checkout@v5.0.0
+    - name: Configuração do contexto do kubernetes
+      uses: Azure/k8s-set-context@v3.0
+      with:
+        method: kubeconfig
+        kubeconfig: ${{secrets.K8S_CONFIG}}
