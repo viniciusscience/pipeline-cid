@@ -14,3 +14,12 @@ jobs:
       with: 
         username: ${{secrets.DOCKERHUB_USER}}
         password: ${{secrets.DOCKERHUB_PWD}}
+    - name: "Build e push image"
+      uses: docker/build-push-action@v5.3.0
+      with:
+        context: ./src
+        file: ./src/Dockerfile
+        push: true
+        tags: |
+          joseviniciussilva/pipeline:v${{github.run_number}}
+          joseviniciussilva/pipeline:latest
